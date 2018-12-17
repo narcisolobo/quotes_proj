@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Quotes</title>
+  <meta name="description" content="Coding Dojo Python Belt Exam.">
+  <meta name="author" content="Narciso Lobo">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'quotes_app/css/style.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="{% static 'quotes_app/images/favicon.ico' %}" type="image/x-icon">
+</head>
+
+<body class="bg-dark text-light">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <img class="nav-logo mr-4" src="{% static 'quotes_app/images/quotes.png' %}" alt="">
+    <a class="h3 text-light mr-4" href="/quotes">Quotes.</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a href="/quotes" class="nav-link text-light">Welcome, {{user.first_name}}.</a>
+        </li>
+      </ul>
+    </div>
+    <p class="mr-3 mb-0"><a class="text-light" href="/myaccount/{{user.id}}">Edit My Account</a></p>
+    <a href="/logout" class="btn btn-secondary my-2 my-sm-0" role="button">logout</a>
+  </nav>
+
+  <div class="container w-75 margin-top bg-light text-dark rounded p-3">
+
+    {% if messages %}
+    <div class="card mb-4 text-white bg-success ">
+      <h5 class="card-header">Success</h5>
+      <div class="card-body">
+        {% for message in messages %}
+        {% if message.tags %}
+        <p class="card-text">{{ message }}</p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <h3 class="mb-4">{{ user.first_name }} {{ user.last_name }}'s Quotes:</h3>
+    {% for quote in user.quotes.all.values %}
+    <div class="card bg-dark text-light w-50 mb-3">
+      <h5 class="card-header">{{ quote.author }}:</h5>
+      <p class="card-body">&ldquo;{{ quote.quote_body }}&rdquo;</p>
+    </div>
+    {% endfor %}
+  </div>
+
+</body>
+
+</html>
