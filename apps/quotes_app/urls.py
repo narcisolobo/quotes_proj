@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^quotes$', views.quotes),
     url(r'^process_like$', views.process_like),
     url(r'^process_quote$', views.process_quote),
+    url(r'^delete_quote$', views.delete_quote),
     url(r'^login$', views.login),
     url(r'^user/(?P<id>\d+)$', views.user),
     url(r'^myaccount/(?P<id>\d+)$', views.myaccount),

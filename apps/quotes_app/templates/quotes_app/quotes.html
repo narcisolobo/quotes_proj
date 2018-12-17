@@ -41,12 +41,21 @@
         <p class="ml-4 mb-0"><small class="blockquote-footer">Posted by
           <a href="/user/{{quote.poster.id}}">{{ quote.poster.first_name }} {{ quote.poster.last_name }}.</a></small></p>
         <p class="ml-4"><small>{{ quote.likes }} like(s)</small></p>
+        {% if user not in quote.liked_by.all %}
         <form class="ml-4" action="process_like" method="POST">
           {% csrf_token %}
           <input type="hidden" name="quote-id" id="quote-id" value="{{ quote.id }}">
           <input type="hidden" name="liked-by-id" id="liked-by-id" value="{{ user.id }}">
           <button class="btn btn-sm btn-primary" type="submit">like this quote</button>
         </form>
+        {% endif %}
+        {% if quote.poster.id == user.id %}
+        <form action="/delete_quote" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="quote-id" id="quote-id" value="{{ quote.id }}">
+          <button class="btn btn-sm btn-danger ml-4 mt-2" type="submit">delete</button>
+        </form>
+        {% endif %}
         {% endfor %}
       </div>
       <div class="col-sm-4">

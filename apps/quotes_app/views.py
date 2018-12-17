@@ -45,6 +45,11 @@ def quotes(request):
     }
     return render(request, 'quotes_app/quotes.html', context)
 
+def delete_quote(request):
+    quote = Quote.objects.get(id=request.POST['quote-id'])
+    quote.delete()
+    return redirect('/quotes')
+
 def process_like(request):
     quote = Quote.objects.get(id=request.POST['quote-id'])
     quote.likes += 1
